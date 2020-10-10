@@ -390,6 +390,26 @@ class QueryResource(BaseResource):
         models.db.session.commit()
 
 
+class QueryPublishResource(BaseResource):
+    @require_permission('edit_query')
+    def post(self, query_id):
+        """
+        Publish a query.
+
+        :param query_id: ID of query to publish
+        """
+        query = get_object_or_404(models.Query.get_by_id_and_org, query_id, self.current_org)
+        require_access(query.data_source, self.current_user, not_view_only)
+        query.publish(self.current_user)
+        models.db.session.commit()
+
+        self.record_event({
+            'action': 'publish',
+            'object_id': query_id,
+            'object_type': 'query',
+        })
+
+
 class QueryRegenerateApiKeyResource(BaseResource):
     @require_permission('edit_query')
     def post(self, query_id):

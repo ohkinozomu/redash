@@ -31,7 +31,7 @@ from redash.handlers.groups import (GroupDataSourceListResource,
 from redash.handlers.permissions import (CheckPermissionResource,
                                          ObjectPermissionsListResource)
 from redash.handlers.queries import (MyQueriesResource, QueryArchiveResource,
-                                     QueryFavoriteListResource,
+                                     QueryFavoriteListResource, QueryPublishResource,
                                      QueryForkResource, QueryListResource,
                                      QueryRecentResource, QueryRefreshResource,
                                      QueryResource, QuerySearchResource,
@@ -115,6 +115,7 @@ api.add_org_resource(QueryListResource, '/api/queries', endpoint='queries')
 api.add_org_resource(MyQueriesResource, '/api/queries/my', endpoint='my_queries')
 api.add_org_resource(QueryRefreshResource, '/api/queries/<query_id>/refresh', endpoint='query_refresh')
 api.add_org_resource(QueryResource, '/api/queries/<query_id>', endpoint='query')
+api.add_org_resource(QueryPublishResource, '/api/queries/<query_id>/publish', endpoint='query_publish')
 api.add_org_resource(QueryForkResource, '/api/queries/<query_id>/fork', endpoint='query_fork')
 api.add_org_resource(QueryRegenerateApiKeyResource,
                      '/api/queries/<query_id>/regenerate_api_key',
