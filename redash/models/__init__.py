@@ -657,6 +657,13 @@ class Query(ChangeTrackingMixin, TimestampMixin, BelongsToOrgMixin, db.Model):
         db.session.add(forked_query)
         return forked_query
 
+    def publish(self, user):
+        db.session.add(self)
+        self.is_draft = False
+
+        if user:
+            self.record_changes(user)
+
     @property
     def runtime(self):
         return self.latest_query_data.runtime
